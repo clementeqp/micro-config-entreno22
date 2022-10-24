@@ -4,6 +4,8 @@ package com.coche.srv.service;
 import com.coche.srv.entity.Car;
 import com.coche.srv.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,10 @@ public class CarService {
 
     public Car getCar(Long id){
         return carRepository.findById(id).orElse(null);
+    }
+
+    public Page<Car> getAllPage(Pageable pageable){
+        return carRepository.findAll(pageable);
     }
 
     public List<Car> getAll(){
