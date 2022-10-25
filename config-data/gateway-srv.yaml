@@ -1,0 +1,30 @@
+server:
+  port: 8082
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+    instance:
+      hostname: hostname
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: userDB-srv
+          uri: lb://userDB-srv
+          predicates:
+            - Path=/userDB/**
+        - id: car-srv
+          uri: lb://car-srv
+          predicates:
+            - Path=/car/**
+        - id: moto-srv
+          uri: lb://moto-srv
+          predicates:
+            - Path=/moto/**
