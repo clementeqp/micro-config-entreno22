@@ -19,7 +19,7 @@ spring:
         - id: userDB-srv
           uri: lb://userDB-srv
           predicates:
-            - Path=/usuario/**
+            - Path=/user/**
         - id: car-srv
           uri: lb://car-srv
           predicates:
