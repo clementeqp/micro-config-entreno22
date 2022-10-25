@@ -3,8 +3,11 @@ package com.coche.srv.controller;
 import com.coche.srv.entity.Car;
 import com.coche.srv.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +34,15 @@ public class CarController {
 
 
     //Paginacion, necesita Spring Data y Web
-    @GetMapping
-    public ResponseEntity<Page<Car>> getAllPage(@PageableDefault(size=2, page=0) Pageable pageable){
-        Page<Car> cars = carService.getAllPage(pageable);
+    @GetMapping("/page")
+    public ResponseEntity<Page<Car>> getAllPage(@PageableDefault(size=2, page=0, sort = "marca") Pageable pageable){
+        PageRequest page = PageRequest.of(
+                pageable.getPageNumber(), pageable.getPageSize(),
+                pageable.getSort());
+        if(pageable.getPageSize()>2) {
+            page = PageRequest.of(pageable.getPageNumber(), 2, pageable.getSort());
+        }
+        Page<Car> cars = carService.getAllPage(page);
         if(cars.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(cars);

@@ -16,9 +16,9 @@ public class CarSrvApplication {
 		ApplicationContext context = SpringApplication.run(CarSrvApplication.class, args);
 		CarRepository repository = context.getBean(CarRepository.class);
 
-		Car car1 = Car.builder().id(null).marca("Audi").modelo("A3").userId(1L).build();
-		Car car2 = Car.builder().id(null).marca("Mercedes").modelo("E5").userId(2L).build();
-		Car car3 = Car.builder().id(null).marca("Opel").modelo("O2").userId(1L).build();
+		Car car1 = Car.builder().id(null).marca("Mercedes").modelo("E5").userId(2L).build();
+		Car car2 = Car.builder().id(null).marca("Opel").modelo("O2").userId(1L).build();
+		Car car3 = Car.builder().id(null).marca("Audi").modelo("A3").userId(1L).build();
 
 		repository.saveAll(List.of(car1, car2, car3));
 	}

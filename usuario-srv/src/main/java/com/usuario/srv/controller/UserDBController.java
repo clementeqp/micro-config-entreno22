@@ -28,10 +28,10 @@ public class UserDBController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    //@ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<UserDB> getById(@PathVariable Long id){
         UserDB userDB = userService.getById(id);
-        if(null == userDB) return ResponseEntity.notFound().build();
+        //if(null == userDB) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(userDB);
     }
 

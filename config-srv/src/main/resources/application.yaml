@@ -6,8 +6,8 @@ spring:
     config:
       server:
         git:
-          default-label: config-srv #Rama  git
-          uri: https://github.com/clementeqp/micro-config-entreno22.git
+          default-label: Config-server
+          uri: https://github.com/clementeqp/micro-config-entreno22
           search-paths: config-data
   application:
     name: config-srv
