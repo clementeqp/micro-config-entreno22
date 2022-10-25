@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          default-label: Config-server
+          default-label: eureka
           uri: https://github.com/clementeqp/micro-config-entreno22
           search-paths: config-data
   application:
