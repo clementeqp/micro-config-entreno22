@@ -49,11 +49,11 @@ public class UserDBService {
     }
 
     public List<CarDTO> getCarByUserId(Long userId) {
-        return restTemplate.getForObject("http://localhost:8082/car/user/" + userId, List.class);
+        return restTemplate.getForObject("http://car-srv/car/user/" + userId, List.class);
     }
 
     public List<CarDTO> getMotoByUserId(Long userId) {
-        return restTemplate.getForObject("http://localhost:8082/moto/user/" + userId, List.class);
+        return restTemplate.getForObject("http://moto-srv/moto/user/" + userId, List.class);
     }
 
     public CarDTO saveCar(Long userId, CarDTO carDTO){
