@@ -20,6 +20,8 @@ spring:
           uri: lb://userDB-srv
           predicates:
             - Path=/user/**
+          filters:
+            - AuthFilter
         - id: car-srv
           uri: lb://car-srv
           predicates:
