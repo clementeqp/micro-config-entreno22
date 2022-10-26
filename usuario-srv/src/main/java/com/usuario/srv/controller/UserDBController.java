@@ -1,8 +1,10 @@
 package com.usuario.srv.controller;
 
 import com.usuario.srv.dto.CarDTO;
+import com.usuario.srv.dto.MotoDTO;
 import com.usuario.srv.entity.UserDB;
 import com.usuario.srv.service.UserDBService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
 
 @RestController
 @RequestMapping("/user")
@@ -42,6 +45,7 @@ public class UserDBController {
         return ResponseEntity.ok(userDB);
     }
 
+    @CircuitBreaker(name = "carsCB",fallbackMethod = "fallBackGetCars")
     @GetMapping("/cars/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<CarDTO>> getCars(@PathVariable("userId") Long userId){
@@ -51,6 +55,7 @@ public class UserDBController {
         return ResponseEntity.ok(cars);
     }
 
+    @CircuitBreaker(name = "motosCB", fallbackMethod = "fallBackGetMotos")
     @GetMapping("/motos/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<CarDTO>> getMotos(@PathVariable("userId") Long userId){
@@ -60,6 +65,7 @@ public class UserDBController {
         return ResponseEntity.ok(cars);
     }
 
+    @CircuitBreaker(name = "carsCB", fallbackMethod = "fallBackSaveCar")
     @PostMapping("/car/{userId}")
     public ResponseEntity<CarDTO> saveCar(
             @PathVariable("userId") Long id, @RequestBody CarDTO car){
@@ -67,10 +73,32 @@ public class UserDBController {
         return ResponseEntity.ok(carDTO);
     }
 
+    @CircuitBreaker(name = "allCB", fallbackMethod = "fallBackGetAll")
     @GetMapping("/allVehicles/{userId}")
     public ResponseEntity<Map<String, Object>> getAllVehicles(@PathVariable("userId") Long id){
         Map<String, Object> result = userService.getAllVehicles(id);
         return ResponseEntity.ok(result);
+    }
+
+    private ResponseEntity<List<CarDTO>> fallBackGetCars(@PathVariable("userId") Long id,
+                                                          RuntimeException excepcion) {
+        return new ResponseEntity("El usuario : " + id + " tiene los carros en el taller", HttpStatus.OK);
+    }
+
+    private ResponseEntity<CarDTO> fallBackSaveCar(@PathVariable("userId") Long id, @RequestBody CarDTO carDTO,
+                                                    RuntimeException excepcion) {
+        return new ResponseEntity("El usuario : " + id + " no tiene dinero para los carros", HttpStatus.OK);
+    }
+
+    private ResponseEntity<List<MotoDTO>> fallBackGetMotos(@PathVariable("userId") Long id, RuntimeException excepcion) {
+        return new ResponseEntity("El usuario : " + id + " tiene las motos en el taller", HttpStatus.OK);
+    }
+
+
+
+    private ResponseEntity<Map<String, Object>> fallBackGetAll(@PathVariable("userId") Long id,
+                                                                 RuntimeException excepcion) {
+        return new ResponseEntity("El usuario : " + id + " tiene los vehiculos en el taller", HttpStatus.OK);
     }
 
 }
