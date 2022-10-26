@@ -1,6 +1,8 @@
 package com.auth.srv.service;
 
 import com.auth.srv.dto.AuthUserDto;
+import com.auth.srv.dto.NewAuthUserDto;
+import com.auth.srv.dto.RequestDto;
 import com.auth.srv.dto.TokenDto;
 import com.auth.srv.entity.AuthUser;
 import com.auth.srv.repo.AuthUserRepository;
@@ -23,7 +25,7 @@ public class AuthUserService {
     @Autowired
     JwtProvider jwtProvider;
 
-    public AuthUser save(AuthUserDto dto) {
+    public AuthUser save(NewAuthUserDto dto) {
         Optional<AuthUser> user = authUserRepository.findByUserName(dto.getUserName());
         if(user.isPresent())
             return null;
@@ -31,6 +33,7 @@ public class AuthUserService {
         AuthUser authUser = AuthUser.builder()
                 .userName(dto.getUserName())
                 .password(password)
+                .role(dto.getRole())
                 .build();
         return authUserRepository.save(authUser);
     }
@@ -44,8 +47,8 @@ public class AuthUserService {
         return null;
     }
 
-    public TokenDto validate(String token) {
-        if(!jwtProvider.validate(token))
+    public TokenDto validate(String token, RequestDto dto) {
+        if(!jwtProvider.validate(token, dto))
             return null;
         String username = jwtProvider.getUserNameFromToken(token);
         if(!authUserRepository.findByUserName(username).isPresent())

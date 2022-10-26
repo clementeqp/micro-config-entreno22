@@ -6,6 +6,7 @@ target/
 
 ### Project ###
 zipkin-server-2.23.19-exec.jar
+authF-srv
 
 ### STS ###
 .apt_generated

@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          default-label: auth-srv
+          default-label: auth-role
           uri: https://github.com/clementeqp/microservicios-SpringBoot-2022.git
           search-paths: config-data
   application:

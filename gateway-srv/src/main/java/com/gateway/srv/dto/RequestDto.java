@@ -1,4 +1,4 @@
-package com.auth.srv.dto;
+package com.gateway.srv.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthUserDto {
+public class RequestDto {
 
-    private String userName;
-    private String password;
-    private String role;
+    private String uri;
+    private String method;
 }

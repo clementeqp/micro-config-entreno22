@@ -3,6 +3,8 @@ package com.auth.srv.controller;
 
 
 import com.auth.srv.dto.AuthUserDto;
+import com.auth.srv.dto.NewAuthUserDto;
+import com.auth.srv.dto.RequestDto;
 import com.auth.srv.dto.TokenDto;
 import com.auth.srv.entity.AuthUser;
 import com.auth.srv.service.AuthUserService;
@@ -26,15 +28,15 @@ public class AuthUserController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<TokenDto> validate(@RequestParam String token) {
-        TokenDto tokenDto = authUserService.validate(token);
+    public ResponseEntity<TokenDto> validate(@RequestParam String token, @RequestBody RequestDto dto) {
+        TokenDto tokenDto = authUserService.validate(token, dto);
         if (tokenDto == null)
             return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(tokenDto);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<AuthUser> create(@RequestBody AuthUserDto dto) {
+    public ResponseEntity<AuthUser> create(@RequestBody NewAuthUserDto dto) {
         AuthUser authUser = authUserService.save(dto);
         if (authUser == null)
             return ResponseEntity.badRequest().build();
