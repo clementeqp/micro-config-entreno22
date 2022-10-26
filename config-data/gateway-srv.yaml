@@ -28,3 +28,7 @@ spring:
           uri: lb://moto-srv
           predicates:
             - Path=/moto/**
+        - id: auth-srv
+          uri: lb://auth-srv
+          predicates:
+            - Path=/auth/**
