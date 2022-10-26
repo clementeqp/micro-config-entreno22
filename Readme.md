@@ -8,7 +8,8 @@
 * Registro y localización de microservicios con Eureka Server.(eureka-srv)
 * Multiples instancias.
 * Enrutamiento con Gateway. Balanceo de carga con Load Balanced. (gateway-srv)
-* Tolerancia a fallos con Resilience4J, patrón Circuit-Breaker. (userController).
+* Tolerancia a fallos con Resilience4j, patrón Circuit-Breaker. (userController).
+* Implementación de Zipkin y Sleuth para realizar tracing.
 
 ---
 
