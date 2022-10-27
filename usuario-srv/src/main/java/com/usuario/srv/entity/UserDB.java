@@ -23,4 +23,5 @@ public class UserDB {
 
     private String nombre;
     private String email;
+    private String password;
 }
