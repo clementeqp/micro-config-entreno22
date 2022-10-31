@@ -1,6 +1,6 @@
 package com.usuario.srv.service;
 
-
+import com.google.gson.Gson;
 import com.usuario.srv.dto.CarDTO;
 import com.usuario.srv.dto.MotoDTO;
 import com.usuario.srv.entity.UserDB;
@@ -8,10 +8,7 @@ import com.usuario.srv.feign.CarFeignClient;
 import com.usuario.srv.feign.MotoFeignClient;
 import com.usuario.srv.repository.UserDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -36,6 +33,15 @@ public class UserDBService {
     @Autowired
     private UserDBRepository userDBRepository;
 
+    @Autowired
+    private UserDBEventService userEventsService;
+
+ /*   public UserDBService(UserEventService userEventsService) {
+        super();
+        this.userEventsService = userEventsService;
+    }*/
+
+
 
     public List<UserDB> getAll(){
         return userDBRepository.findAll();
@@ -45,6 +51,7 @@ public class UserDBService {
         return userDBRepository.findById(id).orElse(null);
     }
     public UserDB saveUser(UserDB userDB){
+        save(userDB);
         return userDBRepository.saveAndFlush(userDB);
     }
 
@@ -84,5 +91,12 @@ public class UserDBService {
             result.put("Motos", motos);
         }
         return result;
+    }
+
+    public void save(UserDB user) {
+        Gson gson = new Gson();
+        System.out.println("Received: " + gson.toJson(user) );
+        this.userEventsService.publish(user);
+
     }
 }

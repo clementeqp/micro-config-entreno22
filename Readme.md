@@ -14,6 +14,7 @@
 * Tracing con Zipkin y Sleuth. (zipkin-sleuth)
 * Auth Gateway. (basic-auth-micros)
 * JWT Gateway. (auth-jwt-role-micros)
+* Kafka. Comunicando microservicios de forma asincrona con Kafka. (master-kafka)
 
 ---
 

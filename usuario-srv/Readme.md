@@ -1,4 +1,11 @@
+# Ejemplo de comunicación entre microservicios usando Apache Kafka
+---
+
+Este proyecto en realidad son 2 proyectos independientes entre si, uno es un productor y el otro un consumidor kafka.
+
+Es una simulación de un microservicios de "UserDB" (publicador) y otro llamado "Car" (consumidor).
+
+El funcionamiento tiene como objetivo solamente demostrar un ejemplo básico con Kafka de como funciona la comunicación asincrona. Al crear un "Customer" por API REST en el servicio de igual nombre se enviará asincronicamente un evento mediante Apache Kafka a "Notifications", que permitirá en Notifications usar estos datos para los fines que sean necesarios.
 
 
-## MicroServicios con SpringBoot.
-* https://github.com/ChristianRaulRamirez/microservicios-tutorial/blob/master/userDB-service/src/main/java/com/userDB/service/configuracion/RestTemplateConfig.java
+Si quieres aprender más sobre microservicios es aquí SACAViX
